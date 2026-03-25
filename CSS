@@ -1,0 +1,162 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&family=Black+Ops+One&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:'Rajdhani',sans-serif;}
+
+/* THEME */
+body.light-theme{background:#e8e0d0;}
+body.light-theme #lobby{background:radial-gradient(ellipse at center,#d0c8b8 0%,#b8b0a0 100%);}
+body.light-theme #modeselect{background:radial-gradient(ellipse at center,#d8d0c0 0%,#c0b8a8 100%);}
+body.light-theme .mode-card{background:#e0d8c8;border-color:#c0b8a8;}
+body.light-theme .ms-title,.body.light-theme .ms-sub{color:#222;}
+body.light-theme #carselect{background:radial-gradient(ellipse at center,#d8d0c0 0%,#c0b8a8 100%);}
+body.light-theme .veh-card{background:#e0d8c8;border-color:#b0a898;}
+body.light-theme .cs-title{color:#222;}
+body.light-theme #hud .hud-box{background:rgba(255,255,255,0.82);border-color:rgba(200,100,0,0.3);}
+body.light-theme .hud-val{color:#111;}
+body.light-theme .controls-hint{background:rgba(255,255,255,0.8);color:#555;}
+
+/* THEME TOGGLE */
+#themeToggle{position:fixed;top:12px;right:14px;z-index:9999;background:rgba(0,0,0,0.5);border:1px solid #ff4400;color:#ff4400;font-family:'Orbitron',monospace;font-size:0.6rem;letter-spacing:2px;padding:7px 12px;cursor:pointer;pointer-events:all;transition:all 0.2s;}
+#themeToggle:hover{background:#ff4400;color:#000;}
+body.light-theme #themeToggle{background:rgba(255,255,255,0.7);border-color:#cc4400;color:#cc4400;}
+
+/* DEV CREDITS INTRO */
+#devCreditsIntro{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#000;z-index:9500;}
+#devCreditsIntro .dci-badge{font-family:'Orbitron',monospace;font-size:0.6rem;letter-spacing:8px;color:#ff4400;margin-bottom:18px;opacity:0;animation:dciFadeIn 0.7s ease-out 0.3s forwards;}
+#devCreditsIntro .dci-title{font-family:'Black Ops One',cursive;font-size:clamp(1rem,3vw,1.4rem);color:#555;letter-spacing:6px;margin-bottom:36px;opacity:0;animation:dciFadeIn 0.7s ease-out 0.6s forwards;}
+#devCreditsIntro .dci-names{display:flex;flex-direction:column;align-items:center;gap:10px;}
+#devCreditsIntro .dci-name{font-family:'Black Ops One',cursive;font-size:clamp(1.5rem,5vw,3rem);color:#fff;letter-spacing:4px;text-align:center;opacity:0;transform:translateY(30px);text-shadow:0 0 30px #ff4400;}
+#devCreditsIntro .dci-name.visible{animation:dciNameIn 0.7s cubic-bezier(0.22,1,0.36,1) forwards;}
+#devCreditsIntro .dci-footer{font-family:'Orbitron',monospace;font-size:0.5rem;color:#222;letter-spacing:4px;position:absolute;bottom:24px;text-align:center;}
+@keyframes dciFadeIn{from{opacity:0;}to{opacity:1;}}
+@keyframes dciNameIn{from{opacity:0;transform:translateY(30px) scale(0.8);}to{opacity:1;transform:translateY(0) scale(1);}}
+
+/* NAME INPUT OVERLAY */
+#nameOverlay{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(0,0,0,0.92);z-index:9000;}
+#nameOverlay .no-title{font-family:'Black Ops One',cursive;font-size:clamp(2rem,6vw,3.5rem);color:#fff;letter-spacing:4px;text-shadow:0 0 30px #ff6600;margin-bottom:8px;text-align:center;}
+#nameOverlay .no-sub{color:#ff4400;font-family:'Orbitron',monospace;font-size:0.7rem;letter-spacing:5px;margin-bottom:36px;text-align:center;}
+#nameOverlay input{font-family:'Orbitron',monospace;font-size:1.2rem;background:transparent;border:none;border-bottom:2px solid #ff4400;color:#fff;text-align:center;padding:10px 20px;width:320px;max-width:85vw;outline:none;letter-spacing:4px;}
+#nameOverlay input::placeholder{color:#333;letter-spacing:2px;}
+#nameOverlay .no-btn{margin-top:30px;font-family:'Orbitron',monospace;font-size:1rem;font-weight:700;letter-spacing:5px;padding:14px 50px;background:transparent;border:2px solid #ff4400;color:#ff4400;cursor:pointer;transition:all 0.3s;text-transform:uppercase;}
+#nameOverlay .no-btn:hover{background:#ff4400;color:#000;}
+
+/* WIN OVERLAY */
+#winOverlay{position:fixed;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;background:rgba(0,0,0,0.88);z-index:500;}
+#winOverlay .win-title{font-family:'Black Ops One',cursive;font-size:clamp(3rem,9vw,6rem);color:#ffcc00;text-shadow:0 0 40px #ffaa00,0 0 80px #ff8800;animation:winPulse 1.2s ease-in-out infinite;text-align:center;}
+@keyframes winPulse{0%,100%{text-shadow:0 0 40px #ffaa00,0 0 80px #ff8800;}50%{text-shadow:0 0 80px #ffdd00,0 0 160px #ffaa00;}}
+#winOverlay .win-name{font-family:'Orbitron',monospace;font-size:clamp(1.2rem,4vw,2.2rem);color:#fff;letter-spacing:6px;margin:10px 0 30px;text-align:center;}
+#winOverlay .win-score{font-family:'Orbitron',monospace;font-size:1rem;color:#ff4400;letter-spacing:4px;margin-bottom:30px;text-align:center;}
+#winOverlay .win-btns{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;}
+#winOverlay .win-btn{font-family:'Orbitron',monospace;font-size:0.85rem;padding:12px 32px;border:2px solid;cursor:pointer;letter-spacing:3px;transition:all 0.2s;background:transparent;}
+#winOverlay .win-btn-r{color:#00ff88;border-color:#00ff88;}
+#winOverlay .win-btn-r:hover{background:#00ff88;color:#000;}
+#winOverlay .win-btn-e{color:#ff4400;border-color:#ff4400;}
+#winOverlay .win-btn-e:hover{background:#ff4400;color:#000;}
+
+/* ZOMBIE DEATH OVERLAY */
+#zombieDieOverlay{position:fixed;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;background:rgba(80,0,0,0.92);z-index:500;}
+#zombieDieOverlay .zd-title{font-family:'Black Ops One',cursive;font-size:clamp(3rem,9vw,5.5rem);color:#ff0000;text-shadow:0 0 50px #ff0000;animation:crashTxtAnim 0.5s ease-out forwards;text-align:center;}
+#zombieDieOverlay .zd-sub{font-family:'Orbitron',monospace;font-size:1rem;color:#ff6600;letter-spacing:4px;margin:16px 0 32px;text-align:center;}
+#zombieDieOverlay .zd-btns{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;}
+#zombieDieOverlay .zd-btn{font-family:'Orbitron',monospace;font-size:0.85rem;padding:12px 32px;border:2px solid;cursor:pointer;letter-spacing:3px;transition:all 0.2s;background:transparent;}
+#zombieDieOverlay .zd-btn-r{color:#00ff88;border-color:#00ff88;}
+#zombieDieOverlay .zd-btn-r:hover{background:#00ff88;color:#000;}
+#zombieDieOverlay .zd-btn-e{color:#ff4400;border-color:#ff4400;}
+#zombieDieOverlay .zd-btn-e:hover{background:#ff4400;color:#000;}
+
+/* WIN CONFETTI CANVAS */
+#confettiCanvas{position:fixed;inset:0;pointer-events:none;z-index:501;}
+
+/* CREDITS OVERLAY */
+#creditsOverlay{position:fixed;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;background:rgba(0,0,0,0.97);z-index:600;}
+#creditsOverlay .cr-title{font-family:'Orbitron',monospace;font-size:0.7rem;letter-spacing:8px;color:#ff4400;margin-bottom:20px;text-align:center;}
+#creditsOverlay .cr-name{font-family:'Black Ops One',cursive;font-size:clamp(2rem,7vw,4rem);color:#fff;letter-spacing:6px;text-align:center;animation:crFly 0.8s ease-out both;}
+@keyframes crFly{from{opacity:0;transform:translateY(60px) scale(0.5);}to{opacity:1;transform:translateY(0) scale(1);}}
+#creditsOverlay .cr-role{font-family:'Orbitron',monospace;font-size:0.65rem;color:#ff8800;letter-spacing:5px;text-align:center;margin-bottom:14px;}
+#creditsOverlay .cr-footer{font-family:'Orbitron',monospace;font-size:0.55rem;color:#333;letter-spacing:4px;margin-top:20px;text-align:center;}
+canvas{display:block;}
+#lobby{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;}
+#lobbyCanvas{position:absolute;inset:0;}
+.lobby-content{position:relative;z-index:10;text-align:center;}
+.game-title{font-family:'Black Ops One',cursive;font-size:clamp(2.8rem,8vw,5rem);color:#fff;letter-spacing:6px;text-shadow:0 0 20px #ff6600,0 0 60px #ff3300,0 0 100px #ff0000;animation:titlePulse 2s ease-in-out infinite;}
+.game-title span{color:#ff3300;}
+.game-sub{font-family:'Orbitron',monospace;font-size:clamp(0.55rem,2vw,0.85rem);color:#ff6600;letter-spacing:8px;margin-bottom:12px;}
+.game-tagline{color:#555;font-size:0.85rem;letter-spacing:3px;margin-bottom:40px;}
+@keyframes titlePulse{0%,100%{text-shadow:0 0 20px #ff6600,0 0 60px #ff3300;}50%{text-shadow:0 0 40px #ff8800,0 0 100px #ff5500,0 0 160px #ff2200;}}
+.start-btn{font-family:'Orbitron',monospace;font-size:1.1rem;font-weight:700;letter-spacing:5px;padding:16px 56px;background:transparent;border:2px solid #ff4400;color:#ff4400;cursor:pointer;position:relative;overflow:hidden;transition:all 0.3s;text-transform:uppercase;pointer-events:all;}
+.start-btn::before{content:'';position:absolute;inset:0;background:#ff4400;transform:scaleX(0);transform-origin:left;transition:transform 0.3s;z-index:-1;}
+.start-btn:hover{color:#000;}.start-btn:hover::before,.start-btn:active::before{transform:scaleX(1);}
+.start-btn:active{color:#000;}
+
+/* MODE SELECT */
+#modeselect{position:fixed;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(ellipse at center,#0a0008 0%,#000 100%);}
+.ms-title{font-family:'Black Ops One',cursive;font-size:clamp(1.5rem,5vw,2.5rem);color:#fff;letter-spacing:4px;margin-bottom:8px;text-align:center;}
+.ms-sub{color:#444;letter-spacing:4px;font-size:0.75rem;margin-bottom:40px;text-align:center;}
+.mode-grid{display:flex;gap:20px;flex-wrap:wrap;justify-content:center;}
+.mode-card{width:clamp(160px,35vw,220px);padding:24px 16px;border:2px solid #1a1a1a;cursor:pointer;transition:all 0.3s;text-align:center;background:#06060e;pointer-events:all;}
+.mode-card:hover,.mode-card.selected{border-color:var(--mc);box-shadow:0 0 30px var(--ms);}
+.mode-icon{font-size:3rem;margin-bottom:12px;}
+.mode-name{font-family:'Orbitron',monospace;font-size:0.9rem;color:#fff;letter-spacing:3px;margin-bottom:8px;}
+.mode-desc{font-size:0.7rem;color:#555;letter-spacing:1px;}
+
+#carselect{position:fixed;inset:0;display:none;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:20px;background:radial-gradient(ellipse at center,#0d0510 0%,#000 100%);overflow-y:auto;}
+.cs-title{font-family:'Black Ops One',cursive;font-size:clamp(1.4rem,4vw,2rem);color:#fff;letter-spacing:4px;margin-bottom:4px;text-align:center;}
+.cs-sub{color:#444;letter-spacing:4px;font-size:0.75rem;margin-bottom:20px;text-transform:uppercase;text-align:center;}
+.vehicles-grid{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;max-width:1060px;margin-bottom:20px;padding:0 10px;}
+.veh-card{width:clamp(130px,28vw,160px);padding:14px 10px 10px;border:1px solid #1a1a1a;cursor:pointer;transition:all 0.3s;text-align:center;background:#06060e;pointer-events:all;position:relative;}
+.veh-card:hover,.veh-card.selected{box-shadow:0 0 22px var(--ag);}
+.veh-card:hover{border-color:var(--ac);}.veh-card.selected{border-color:var(--ac);}
+.veh-card canvas{display:block;margin:0 auto 8px;}
+.veh-badge{position:absolute;top:7px;right:7px;font-size:0.5rem;letter-spacing:2px;padding:2px 5px;font-family:'Orbitron',monospace;border-radius:1px;}
+.veh-name{font-family:'Orbitron',monospace;font-size:0.65rem;color:#fff;letter-spacing:2px;margin-bottom:3px;}
+.veh-desc{font-size:0.56rem;color:#333;margin-bottom:6px;letter-spacing:1px;}
+.stat-row{display:flex;align-items:center;gap:5px;margin:2px 0;}
+.stat-lbl{color:#444;font-size:0.56rem;width:38px;text-align:left;letter-spacing:1px;}
+.stat-track{flex:1;height:3px;background:#0e0e0e;overflow:hidden;}
+.stat-fill{height:100%;}
+.select-btn{font-family:'Orbitron',monospace;font-size:0.9rem;padding:13px 50px;background:#ff4400;border:none;color:#fff;font-weight:700;cursor:pointer;letter-spacing:4px;transition:all 0.3s;pointer-events:all;margin-bottom:20px;}
+.select-btn:hover,.select-btn:active{background:#ff6600;}.select-btn:disabled{background:#111;color:#333;cursor:not-allowed;}
+
+#countdown{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.82);z-index:100;}
+.countdown-num{font-family:'Black Ops One',cursive;font-size:11rem;color:#ff4400;text-shadow:0 0 80px #ff0000;animation:countAnim 0.9s ease-out forwards;}
+@keyframes countAnim{0%{transform:scale(2);opacity:0;}50%{opacity:1;}100%{transform:scale(0.6);opacity:0;}}
+
+#hud{position:fixed;top:0;left:0;right:0;padding:8px 12px;display:none;justify-content:space-between;align-items:flex-start;z-index:50;pointer-events:none;}
+.hud-box{background:rgba(0,0,0,0.78);border:1px solid rgba(255,68,0,0.2);padding:6px 12px;}
+.hud-label{font-size:0.55rem;color:#ff4400;letter-spacing:3px;text-transform:uppercase;margin-bottom:2px;}
+.hud-val{font-family:'Orbitron',monospace;font-size:1.1rem;color:#fff;font-weight:700;}
+.bar-wrap{width:90px;height:5px;background:#0a0a0a;overflow:hidden;margin-top:3px;}
+.bar-fill{height:100%;transition:width 0.1s;}
+.kills-val{font-family:'Orbitron',monospace;font-size:1rem;color:#00ff88;}
+
+/* TOUCH CONTROLS */
+#touchControls{position:fixed;bottom:0;left:0;right:0;display:none;z-index:60;pointer-events:none;height:180px;}
+.touch-zone-left{position:absolute;left:0;bottom:0;width:38%;height:100%;pointer-events:all;display:flex;align-items:center;justify-content:center;}
+.touch-zone-right{position:absolute;right:0;bottom:0;width:38%;height:100%;pointer-events:all;display:flex;align-items:center;justify-content:center;}
+.touch-label{font-family:'Orbitron',monospace;font-size:1.4rem;color:rgba(255,255,255,0.15);border:2px solid rgba(255,255,255,0.08);border-radius:50%;width:70px;height:70px;display:flex;align-items:center;justify-content:center;user-select:none;}
+.touch-btn-area{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);display:flex;gap:16px;pointer-events:all;}
+.touch-btn{font-family:'Orbitron',monospace;font-size:0.6rem;letter-spacing:2px;padding:12px 18px;border-radius:4px;border:2px solid;cursor:pointer;user-select:none;font-weight:700;pointer-events:all;-webkit-user-select:none;}
+.touch-btn-fire{background:rgba(255,68,0,0.2);border-color:#ff4400;color:#ff4400;}
+.touch-btn-boost{background:rgba(255,200,0,0.2);border-color:#ffcc00;color:#ffcc00;}
+.touch-btn-fire.active{background:rgba(255,68,0,0.6);}
+.touch-btn-boost.active{background:rgba(255,200,0,0.5);}
+
+/* PAUSE MENU */
+#pauseMenu{position:fixed;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;background:rgba(0,0,0,0.88);z-index:400;backdrop-filter:blur(4px);}
+#pauseMenu .pm-title{font-family:'Black Ops One',cursive;font-size:clamp(2.5rem,7vw,4rem);color:#fff;letter-spacing:6px;text-shadow:0 0 30px #ff4400;margin-bottom:8px;text-align:center;}
+#pauseMenu .pm-sub{font-family:'Orbitron',monospace;font-size:0.65rem;color:#ff4400;letter-spacing:6px;margin-bottom:50px;text-align:center;}
+#pauseMenu .pm-btns{display:flex;flex-direction:column;gap:14px;align-items:center;}
+#pauseMenu .pm-btn{font-family:'Orbitron',monospace;font-size:0.9rem;padding:14px 60px;background:transparent;border:2px solid;cursor:pointer;letter-spacing:4px;transition:all 0.2s;text-transform:uppercase;width:260px;text-align:center;}
+#pauseMenu .pm-btn-continue{color:#00ff88;border-color:#00ff88;}
+#pauseMenu .pm-btn-continue:hover{background:#00ff88;color:#000;}
+#pauseMenu .pm-btn-restart{color:#ffcc00;border-color:#ffcc00;}
+#pauseMenu .pm-btn-restart:hover{background:#ffcc00;color:#000;}
+#pauseMenu .pm-btn-menu{color:#ff4400;border-color:#ff4400;}
+#pauseMenu .pm-btn-menu:hover{background:#ff4400;color:#000;}
+#pauseMenu .pm-esc-hint{font-family:'Orbitron',monospace;font-size:0.5rem;color:#333;letter-spacing:4px;margin-top:30px;text-align:center;}
+
+#crash-overlay{position:fixed;inset:0;background:rgba(180,0,0,0);display:none;align-items:center;justify-content:center;z-index:200;animation:crashBg 1.2s ease-out forwards;}
+@keyframes crashBg{0%{background:rgba(180,0,0,0.5);}100%{background:rgba(180,0,0,0);}}
+.crash-txt{font-family:'Black Ops One',cursive;font-size:clamp(3rem,8vw,5rem);color:#ff0000;text-shadow:0 0 60px #ff0000;animation:crashTxtAnim 1.2s ease-out forwards;}
+@keyframes crashTxtAnim{0%{transform:scale(1.8);opacity:1;}100%{transform:scale(0.4);opacity:0;}}
+.controls-hint{position:fixed;bottom:12px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.65);border:1px solid #111;padding:6px 16px;color:#333;font-size:0.65rem;letter-spacing:2px;z-index:50;white-space:nowrap;}
