@@ -1,0 +1,96 @@
+# Test Cases - Turbo Rush
+
+This file contains manual test cases for the `Turbo Rush - Death Road` browser game, organized into smaller sections.
+
+## Test Environment
+
+- Browser: Chrome, Edge, or another modern browser
+- Required files in the same folder:
+  - `racing_game_v5.html`
+  - `racing_game_v5.css`
+  - `racing_game_v5.js`
+
+## 1. Launch and Startup
+
+| TC ID | Scenario | Steps | Expected Result |
+|------|----------|-------|-----------------|
+| TC-01 | Game file opens | Open `racing_game_v5.html` in a browser | Game loads successfully |
+| TC-02 | Developer intro appears | Launch the game | Intro overlay is displayed |
+| TC-03 | Developer credit is correct | Watch the intro screen | `Samay Chutani` appears in the credits |
+| TC-04 | Name input appears | Wait for intro to finish | Name input overlay is shown |
+
+## 2. Name Entry
+
+| TC ID | Scenario | Steps | Expected Result |
+|------|----------|-------|-----------------|
+| TC-05 | Empty name is blocked | Press Enter without typing a name | User does not continue |
+| TC-06 | Valid name is accepted | Enter a valid name and submit | Lobby screen opens |
+| TC-07 | Enter key submits name | Type a name and press Enter | Name is accepted and lobby opens |
+
+## 3. Lobby and Navigation
+
+| TC ID | Scenario | Steps | Expected Result |
+|------|----------|-------|-----------------|
+| TC-08 | Start button works | Click `START ENGINE` | Mode select screen opens |
+| TC-09 | Traffic mode can be chosen | Click Traffic mode card | Traffic mode is selected |
+| TC-10 | Zombie mode can be chosen | Click Zombie mode card | Zombie mode is selected |
+| TC-11 | Vehicle selection opens | Choose a mode and continue | Vehicle selection screen appears |
+
+## 4. Vehicle Selection
+
+| TC ID | Scenario | Steps | Expected Result |
+|------|----------|-------|-----------------|
+| TC-12 | Vehicle card can be selected | Click any vehicle card | Vehicle is highlighted |
+| TC-13 | Game starts after selection | Select a vehicle and start | Countdown appears and game begins |
+
+## 5. Gameplay Controls
+
+| TC ID | Scenario | Steps | Expected Result |
+|------|----------|-------|-----------------|
+| TC-14 | HUD appears in gameplay | Start a game | HUD is visible |
+| TC-15 | Keyboard movement works | Use control keys during gameplay | Vehicle responds correctly |
+| TC-16 | Pause menu opens | Press `Escape` during gameplay | Pause menu appears |
+| TC-17 | Continue resumes game | Click Continue in pause menu | Game resumes |
+| TC-18 | Restart works from pause | Click Restart in pause menu | Game restarts |
+| TC-19 | Exit works from pause | Click Menu/Exit in pause menu | User returns to lobby/menu |
+
+## 6. Theme and Interface
+
+| TC ID | Scenario | Steps | Expected Result |
+|------|----------|-------|-----------------|
+| TC-20 | Theme toggle works | Click theme toggle button | Theme changes |
+| TC-21 | Styled UI loads correctly | Open the game normally | CSS is applied properly |
+| TC-22 | JavaScript interactions work | Click buttons and navigate screens | UI and game logic respond correctly |
+
+## 7. Win and Lose Screens
+
+| TC ID | Scenario | Steps | Expected Result |
+|------|----------|-------|-----------------|
+| TC-23 | Win overlay appears | Complete the win condition | `YOU WIN!` overlay appears |
+| TC-24 | Play again works | Click `PLAY AGAIN` on win screen | Game restarts |
+| TC-25 | Exit works from win screen | Click `EXIT` on win screen | User returns to menu/lobby |
+| TC-26 | Zombie death overlay appears | Lose in zombie mode | `YOU DIED!` overlay appears |
+| TC-27 | Restart works from death screen | Click `RESTART` on death overlay | Game restarts |
+| TC-28 | Exit works from death screen | Click `EXIT` on death overlay | User returns to menu/lobby |
+
+## 8. Mobile and Responsiveness
+
+| TC ID | Scenario | Steps | Expected Result |
+|------|----------|-------|-----------------|
+| TC-29 | Touch controls appear on supported device | Open game on touch device | Touch controls are visible |
+| TC-30 | Touch controls respond | Use touch buttons during gameplay | Game responds correctly |
+| TC-31 | Layout works on small screens | Resize browser or test on mobile | UI stays readable and usable |
+
+## Result Template
+
+| TC ID | Status | Remarks |
+|------|--------|---------|
+| TC-01 | Pass / Fail |  |
+| TC-02 | Pass / Fail |  |
+| TC-03 | Pass / Fail |  |
+
+## Notes
+
+- These are manual functional test cases.
+- Check the browser console for JavaScript errors while testing.
+- Repeat major tests after uploading to GitHub or GitHub Pages.
