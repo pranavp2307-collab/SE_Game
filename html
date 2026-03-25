@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>TURBO RUSH - Death Road</title>
+<link rel="stylesheet" href="racing_game_v5.css">
+</head>
+<body>
+<!-- THEME TOGGLE -->
+<button id="themeToggle" onclick="toggleTheme()">☀ LIGHT</button>
+
+<!-- DEV CREDITS INTRO -->
+<div id="devCreditsIntro">
+  <div class="dci-badge">DEVELOPED BY</div>
+  <div class="dci-title">TURBO RUSH &bull; DEATH ROAD CHAMPIONSHIP</div>
+  <div class="dci-names">
+    <div class="dci-name" id="dciN0">DAKSH BHARDWAJ</div>
+    <div class="dci-name" id="dciN1">ANANT SAINI</div>
+    <div class="dci-name" id="dciN2">PRANAV PANDEY</div>
+    <div class="dci-name" id="dciN3">Samay Chutani</div>
+  </div>
+  <div class="dci-footer">TURBO RUSH &copy; 2025</div>
+</div>
+
+<!-- NAME INPUT OVERLAY -->
+<div id="nameOverlay" style="display:none;">
+  <div class="no-title">TURBO <span style="color:#ff3300">RUSH</span></div>
+  <div class="no-sub">DEATH ROAD CHAMPIONSHIP</div>
+  <input type="text" id="playerNameInput" placeholder="ENTER YOUR NAME" maxlength="18" autocomplete="off" spellcheck="false">
+  <button class="no-btn" onclick="submitName()">&#9658; ENTER THE ROAD</button>
+</div>
+
+<!-- WIN OVERLAY -->
+<div id="winOverlay">
+  <div class="win-title">&#127942; YOU WIN!</div>
+  <div class="win-name" id="winPlayerName"></div>
+  <div class="win-score" id="winScoreText"></div>
+  <div class="win-btns">
+    <button class="win-btn win-btn-r" onclick="restartFromWin()">&#8635; PLAY AGAIN</button>
+    <button class="win-btn win-btn-e" onclick="exitToLobby()">&#10005; EXIT</button>
+  </div>
+</div>
+
+<!-- ZOMBIE DIE OVERLAY -->
+<div id="zombieDieOverlay">
+  <div class="zd-title">&#9760; YOU DIED!</div>
+  <div class="zd-sub" id="zombieDieSub">INFECTED BY ZOMBIES</div>
+  <div class="zd-btns">
+    <button class="zd-btn zd-btn-r" onclick="restartFromZombieDie()">&#8635; RESTART</button>
+    <button class="zd-btn zd-btn-e" onclick="exitToLobby()">&#10005; EXIT</button>
+  </div>
+</div>
+
+<!-- CREDITS OVERLAY -->
+<div id="creditsOverlay">
+  <div class="cr-title">DEVELOPED BY</div>
+  <div class="cr-name" id="crName"></div>
+  <div class="cr-role" id="crRole"></div>
+  <div class="cr-footer">TURBO RUSH &bull; DEATH ROAD CHAMPIONSHIP</div>
+</div>
+
+<!-- LOBBY -->
+<div id="lobby" style="display:none;">
+  <canvas id="lobbyCanvas"></canvas>
+  <div class="lobby-content">
+    <div class="game-title">TURBO <span>RUSH</span></div>
+    <div class="game-sub">DEATH ROAD CHAMPIONSHIP</div>
+    <div class="game-tagline">Outrun the apocalypse. Dominate the streets.</div>
+    <button class="start-btn" onclick="showModeSelect()">&#9658; START ENGINE</button>
+  </div>
+</div>
+<!-- confetti canvas outside win overlay so it layers correctly -->
+<canvas id="confettiCanvas" style="position:fixed;inset:0;pointer-events:none;z-index:501;display:none;"></canvas>
+
+<!-- MODE SELECT -->
+<div id="modeselect">
+  <div class="ms-title">CHOOSE YOUR MISSION</div>
+  <div class="ms-sub">traffic run &bull; or &bull; zombie apocalypse</div>
+  <div class="mode-grid">
+    <div class="mode-card" style="--mc:#ff8800;--ms:rgba(255,136,0,0.3);" onclick="selectMode('traffic',this)">
+      <div class="mode-icon">🚗</div>
+      <div class="mode-name">TRAFFIC RUN</div>
+      <div class="mode-desc">Navigate through heavy traffic. Survive the chaos.</div>
+    </div>
+    <div class="mode-card" style="--mc:#00ff88;--ms:rgba(0,255,136,0.3);" onclick="selectMode('zombie',this)">
+      <div class="mode-icon">🧟</div>
+      <div class="mode-name">ZOMBIE HORDE</div>
+      <div class="mode-desc">Zombies invade the road. Gun 'em all down.</div>
+    </div>
+  </div>
+  <br>
+  <button class="select-btn" id="modeBtn" onclick="showCarSelect()" disabled style="margin-top:20px;">SELECT VEHICLE &#9654;</button>
+</div>
+
+<!-- CAR SELECT -->
+<div id="carselect">
+  <div class="cs-title">CHOOSE YOUR WEAPON</div>
+  <div class="cs-sub" id="csSub">6 machines &bull; infinite carnage</div>
+  <div class="vehicles-grid" id="vehGrid"></div>
+  <button class="select-btn" id="selectBtn" onclick="startRace()" disabled>DEPLOY &#9654;</button>
+</div>
+
+<div id="countdown"><div class="countdown-num" id="cdNum">3</div></div>
+<canvas id="gameCanvas" style="display:none;position:fixed;inset:0;"></canvas>
+<div id="hud" style="display:none;">
+  <div class="hud-box">
+    <div class="hud-label">Speed</div>
+    <div class="hud-val"><span id="speedVal">0</span><span style="font-size:0.55rem;color:#444;"> KM/H</span></div>
+  </div>
+  <div style="display:flex;gap:8px;">
+    <div class="hud-box" style="text-align:center;">
+      <div class="hud-label">Score</div>
+      <div class="hud-val" id="scoreVal">0</div>
+    </div>
+    <div class="hud-box" style="text-align:center;">
+      <div class="hud-label" id="killsLabel">Kills</div>
+      <div class="kills-val" id="killsVal">0</div>
+    </div>
+  </div>
+  <div class="hud-box" style="text-align:right;">
+    <div class="hud-label">Boost</div>
+    <div class="bar-wrap"><div class="bar-fill" id="boostBar" style="width:100%;background:linear-gradient(90deg,#ff4400,#ffcc00);"></div></div>
+    <div class="hud-label" id="ammoLabel" style="margin-top:5px;">Ammo</div>
+    <div class="bar-wrap" id="ammoWrap"><div class="bar-fill" id="ammoBar" style="width:100%;background:linear-gradient(90deg,#00ff88,#00ffcc);"></div></div>
+    <div id="livesDisplay" style="display:none;margin-top:4px;font-size:1.1rem;letter-spacing:2px;">&#10084;&#10084;&#10084;</div>
+    <div class="hud-label" style="margin-top:5px;">Wave</div>
+    <div class="hud-val" id="waveVal" style="font-size:0.85rem;color:#ff8800;">1</div>
+  </div>
+</div>
+
+<!-- TOUCH CONTROLS -->
+<div id="touchControls">
+  <div class="touch-zone-left" id="touchLeft">
+    <div class="touch-label">◀</div>
+  </div>
+  <div class="touch-zone-right" id="touchRight">
+    <div class="touch-label">▶</div>
+  </div>
+  <div class="touch-btn-area">
+    <button class="touch-btn touch-btn-fire" id="touchFire">🔥 FIRE</button>
+    <button class="touch-btn touch-btn-boost" id="touchBoost">⚡ BOOST</button>
+  </div>
+</div>
+
+<!-- PAUSE MENU -->
+<div id="pauseMenu">
+  <div class="pm-title">PAUSED</div>
+  <div class="pm-sub">&#9646;&#9646; GAME PAUSED</div>
+  <div class="pm-btns">
+    <button class="pm-btn pm-btn-continue" onclick="resumeGame()">&#9654; Continue</button>
+    <button class="pm-btn pm-btn-restart" onclick="pauseRestart()">&#8635; Restart</button>
+    <button class="pm-btn pm-btn-menu" onclick="pauseMainMenu()">&#8962; Main Menu</button>
+  </div>
+  <div class="pm-esc-hint">PRESS ESC TO RESUME</div>
+</div>
+
+<div id="crash-overlay"><div class="crash-txt">YOU DIED!</div></div>
+<div class="controls-hint" id="controlsHint" style="display:none;">A/D — Steer &nbsp;|&nbsp; SPACE — Boost &nbsp;|&nbsp; F — Fire &nbsp;|&nbsp; ESC — Pause</div>
+<script src="racing_game_v5.js"></script>
+</body>
+</html>
+
